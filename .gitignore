@@ -39,3 +39,12 @@ aios/knowledge/postmortems/incident_*_postmortem.json
 
 # Local Scripts
 *.ps1
+
+# VS Code personal settings (contains unrelated MCP server configs)
+.vscode/mcp.json
+
+# Internal maintenance scripts — not useful for public repo
+aios/scripts/purge_index_docs.py
+aios/scripts/audit_kb_index.py
+aios/scripts/smoke_test_cloud_queries.py
+aios/scripts/smoke_test_kb_queries.py
