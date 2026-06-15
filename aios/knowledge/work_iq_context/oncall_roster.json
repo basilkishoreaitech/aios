@@ -1,0 +1,20 @@
+[
+  {
+    "event_type": "oncall",
+    "service_name": "api-gateway",
+    "title": "Primary On-Call SRE",
+    "content": "On-call Engineer: Alex Smith (alex.smith@ops.aios), Tier: Primary. Phone: +1-555-0199.",
+    "author": "ops-manager",
+    "event_time": "2026-06-07T00:00:00Z",
+    "metadata_json": {"tier": "primary", "shift": "night-shift"}
+  },
+  {
+    "event_type": "oncall",
+    "service_name": "database",
+    "title": "DBA Escalation Engineer",
+    "content": "On-call DBA: Sarah Jenkins (sarah.j@db.aios), Tier: Escalation. Phone: +1-555-0145.",
+    "author": "ops-manager",
+    "event_time": "2026-06-07T00:00:00Z",
+    "metadata_json": {"tier": "escalation", "specialty": "postgres"}
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "id": "scenario_01_db_pool",
+  "name": "Database Connection Pool Exhaustion on api-gateway-prod",
+  "description": "Simulation of connection pool exhaustion following a recent v2.3 deployment on api-gateway-prod.",
+  "category": "database",
+  "expected_risk_level": "medium",
+  "expected_diagnosis": "Recent deployment of v2.3 introduced unclosed database transactions causing connection pool exhaustion on api-gateway-prod.",
+  "alert_payload": {
+    "alert_name": "ConnectionPoolExhausted",
+    "service_name": "api-gateway-prod",
+    "severity": "SEV-1",
+    "timestamp": "2026-06-07T02:43:00Z",
+    "details": "sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out.",
+    "metrics": {
+      "pool_size": 5,
+      "active_connections": 15,
+      "waiting_requests": 34
+    }
+  }
+}

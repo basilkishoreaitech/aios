@@ -1,0 +1,7 @@
+{
+  "id": "runbook_kubernetes_oom_recovery",
+  "title": "Kubernetes Pod OOMKilled Recovery Guide",
+  "category": "runbook",
+  "content": "Kubernetes Pod OOMKilled Recovery Guide:\n\n### Symptoms\n- Kubernetes event: 'Reason: OOMKilled'.\n- Pod restarts increasing rapidly for recommendation-engine-pod.\n- Services getting 502 bad gateway during resource crunch.\n\n### Diagnosis\n1. Inspect pod description to verify OOMKilled exit code 137:\n   kubectl describe pod <pod_name>\n2. Check resource limits configuration in deployment spec:\n   kubectl get deployment recommendation-engine -o yaml\n\n### Safe Mitigation Steps\nOption A: Increase Memory Limits in Deployment\n- Dynamically patch memory limits from 512Mi to 1Gi:\n  kubectl patch deployment recommendation-engine --type='json' -p='[{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/resources/limits/memory\", \"value\":\"1Gi\"}]'\n\nOption B: Scale replicas to distribute load\n- Temporarily scale deployment pods to handle spike:\n  kubectl scale deployment recommendation-engine --replicas=5\n\n### Rollback Plan\nVerify CPU/Memory graphs in Prometheus. Once memory utilization stabilizes, review code for leaks before reverting resources to standard tiers.",
+  "tags": ["kubernetes", "oomkilled", "limits", "scale", "kubectl"]
+}

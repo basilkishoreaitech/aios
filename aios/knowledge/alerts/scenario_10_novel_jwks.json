@@ -1,0 +1,19 @@
+{
+  "id": "scenario_10_novel_jwks",
+  "name": "Novel Outage: JWKS Endpoint Unreachable on auth-token-service",
+  "description": "An unseen authentication handshake failure due to a JWKS endpoint issue. This has zero local runbook/postmortem matches.",
+  "category": "auth",
+  "expected_risk_level": "high",
+  "expected_diagnosis": "Authentication handshake failure because the upstream JWKS endpoint on auth-token-service is unreachable (firewall or network policy block).",
+  "alert_payload": {
+    "alert_name": "TokenValidationError",
+    "service_name": "auth-token-service",
+    "severity": "SEV-1",
+    "timestamp": "2026-06-07T02:44:00Z",
+    "details": "TokenValidationError: The JWKS signing keys endpoint 'https://auth-token-service.internal/oauth/certs' is unreachable. Connection timed out after 5000ms.",
+    "metrics": {
+      "unreachable_endpoint_timeouts": 89,
+      "failed_token_validations": 412
+    }
+  }
+}

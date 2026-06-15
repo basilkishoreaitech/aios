@@ -1,0 +1,20 @@
+{
+  "id": "scenario_02_memory_leak",
+  "name": "Memory Leak in API Gateway",
+  "description": "Gradual rise in memory usage on api-gateway causing OOMKilled restarts.",
+  "category": "memory",
+  "expected_risk_level": "low",
+  "expected_diagnosis": "API Gateway is experiencing a memory leak, resembling a historical leak in the log formatting library.",
+  "alert_payload": {
+    "alert_name": "MemoryUsageThresholdExceeded",
+    "service_name": "api-gateway",
+    "severity": "SEV-2",
+    "timestamp": "2026-06-07T02:45:00Z",
+    "details": "Container memory usage reached 92% of limits (471MB of 512MB). Rapid heap growth detected.",
+    "metrics": {
+      "memory_utilization_pct": 92.0,
+      "heap_used_bytes": 451000000,
+      "oom_restarts": 2
+    }
+  }
+}

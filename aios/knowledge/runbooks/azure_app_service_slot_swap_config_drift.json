@@ -1,0 +1,7 @@
+{
+  "id": "runbook_azure_app_service_slot_swap_config_drift",
+  "title": "Azure App Service Slot Swap Configuration Drift Recovery",
+  "category": "runbook",
+  "content": "Azure App Service Slot Swap Configuration Drift Recovery\n\n### Symptoms\n- App works in staging slot but fails immediately after swap to production.\n- Production returns 500 or auth failures after slot swap.\n- Connection strings, Key Vault references, or environment-specific settings appear incorrect after release.\n\n### Diagnosis\n1. Compare app settings and connection strings between source and target slots.\n2. Verify which settings are marked as slot-specific and which are shared.\n3. Review swap history and deployment logs to confirm the timing of failure.\n4. Validate health endpoint behavior before and after swap.\n\n### Safe Mitigation Steps\nOption A: Swap back\n- If production degraded immediately after swap and config drift is confirmed, perform a controlled swap back.\n\nOption B: Correct slot settings\n- Mark environment-specific values as slot settings.\n- Re-apply the correct production connection strings and identity configuration.\n\nOption C: Warmup validation\n- Add or verify pre-swap health validation and warmup checks before future swaps.\n\n### Verification\n- Production slot health checks pass after correction.\n- Authentication, database access, and Key Vault references use production values.\n- Error rate returns to baseline.",
+  "tags": ["azure", "app-service", "slot-swap", "config-drift", "connection-strings", "key-vault", "deployment"]
+}

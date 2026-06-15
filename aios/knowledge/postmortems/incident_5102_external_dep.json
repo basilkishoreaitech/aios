@@ -1,0 +1,7 @@
+{
+  "id": "incident_5102_external_dep",
+  "title": "Postmortem - Incident #5102: Third-Party Payment Gateway Latency",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #5102: Third-Party Payment Gateway Latency\n\n### Incident Summary\nOn April 15, customer transactions on the /charge endpoint started timing out with 504 status codes. Payment gateway responses took over 15 seconds, blocking thread pools.\n\n### Root Cause\nThe external Stripe payment API endpoint was experiencing a global service disruption, leading to timeouts in our payment-service calls.\n\n### Resolution\nSince there was no internal fix for external Stripe latency, the team manually tripped the circuit breaker flag in the payment-service configuration. This immediately failed payment attempts locally with a 'Payment system down, please try again' message, freeing up thread pools and restoring general API stability.\n\n### Action Items\n- Configure automatic circuit breaking with a timeout of 3 seconds.\n- Add secondary gateway fallback (e.g. Adyen, PayPal).",
+  "tags": ["stripe", "payment-service", "latency", "circuit-breaker", "timeout"]
+}

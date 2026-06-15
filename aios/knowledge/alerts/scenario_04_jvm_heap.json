@@ -1,0 +1,20 @@
+{
+  "id": "scenario_04_jvm_heap",
+  "name": "Self-Hosted JVM Heap Exhaustion on AWS EC2",
+  "description": "Prometheus alert showing heap memory limits exceeded on a self-hosted Spring Boot app.",
+  "category": "jvm",
+  "expected_risk_level": "medium",
+  "expected_diagnosis": "JVM Heap memory has reached max allocation limits, causing GC pauses and high latency on EC2 instance.",
+  "alert_payload": {
+    "alert_name": "JvmMemoryExhausted",
+    "service_name": "spring-billing-service",
+    "severity": "SEV-2",
+    "timestamp": "2026-06-07T02:40:00Z",
+    "details": "Prometheus Alert: JVM Heap Memory Usage > 98% for billing-service running on EC2 instance i-0abcdef1234567890.",
+    "metrics": {
+      "jvm_heap_usage_pct": 99.1,
+      "gc_pause_time_ms": 3200,
+      "cpu_load_pct": 88.0
+    }
+  }
+}

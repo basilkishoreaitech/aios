@@ -1,0 +1,7 @@
+{
+  "id": "incident_7401_cert_expiry",
+  "title": "Postmortem - Incident #7401: TLS Certificate Expiration Outage",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #7401: TLS Certificate Expiration Outage\n\n### Incident Summary\nOn May 24, all user HTTPS requests to api-gateway failed. Browsers displayed security warning SSL certificate expired. Latency rose to infinity.\n\n### Root Cause\nThe automated ACME renewal cron job was silent because its endpoint was blocked by a firewall configuration change. The cert expired after 90 days.\n\n### Resolution\nSRE updated the firewall rules to allow certbot outbound connection. Run certbot manually to renew the certificate and reload the Nginx gateway configs.\n\n### Action Items\n- Add external uptime monitoring of SSL cert expiration dates.\n- Configure slack/email notifications 14 days before certificate expiration.",
+  "tags": ["tls", "ssl", "certificate-expiration", "certbot", "nginx"]
+}

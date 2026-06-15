@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIOS Next-Gen Animated Logo</title>
+    <style>
+        body {
+            background-color: #FFFFFF; /* Seamless integration with your white website theme */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #FFFFFF;
+            padding: 20px;
+        }
+
+        /* Responsive scaling */
+        .aios-logo-svg {
+            width: 100%;
+            max-width: 550px; 
+            height: auto;
+        }
+
+        /* ======================== ANIMATION ENGINE ======================== */
+
+        /* 1. Futuristic Shutter Eye Blink Animation */
+        @keyframes eyeBlink {
+            0%, 45%, 55%, 100% {
+                transform: scaleY(1); /* Eyelid fully open */
+            }
+            50% {
+                transform: scaleY(0.05); /* Rapid vertical shut/blink */
+            }
+        }
+
+        /* 2. Intelligent Core Glow/Pulse */
+        @keyframes irisPulse {
+            0%, 100% {
+                opacity: 0.8;
+                filter: drop-shadow(0px 0px 4px #00E5FF);
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0px 0px 12px #00E5FF) brightness(1.2);
+            }
+        }
+
+        /* 3. Subtle Circuit Data Flow Trace */
+        @keyframes circuitTrace {
+            0% { stroke-dashoffset: 60; opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.4; }
+        }
+
+        /* Target classes inside the SVG */
+        .animated-eyelid {
+            transform-origin: 65px 75px; /* Centers the blink axis on the iris */
+            animation: eyeBlink 4.5s infinite ease-in-out;
+        }
+
+        .glowing-iris {
+            animation: irisPulse 2.5s infinite ease-in-out;
+        }
+
+        .moving-circuit {
+            stroke-dasharray: 20, 40;
+            animation: circuitTrace 4s infinite linear;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-wrapper">
+        <!-- AIOS SVG STARTS HERE -->
+        <svg class="aios-logo-svg" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- Color Gradients for Next-Gen Tech Depth -->
+                <linearGradient id="cyberCyan" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#0052D4;" />
+                    <stop offset="50%" style="stop-color:#4364F7;" />
+                    <stop offset="100%" style="stop-color:#6FB1FC;" />
+                </linearGradient>
+                
+                <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00E5FF;" />
+                    <stop offset="100%" style="stop-color:#007BFF;" />
+                </linearGradient>
+
+                <!-- Clip Path mask creating the mechanical eye boundaries -->
+                <clipPath id="eyeShutterClip">
+                    <circle class="animated-eyelid" cx="65" cy="75" r="16" />
+                </clipPath>
+            </defs>
+
+            <!-- ================= LEFT SIDE: "A" ICON ================= -->
+            <g transform="translate(10, 0)">
+                <!-- Outer Cyber-A Frame Structure -->
+                <path d="M65 15 L115 115 L92 115 L80 90 L50 90 L38 115 L15 115 Z" fill="url(#cyberCyan)" />
+                <path d="M65 30 L100 105 L86 105 L75 80 L55 80 L44 105 L30 105 Z" fill="#FFFFFF" />
+
+                <!-- Digital Nodes / Circuitry Paths overlay inside the A -->
+                <path class="moving-circuit" d="M65 35 L90 92 M65 35 L40 92 M50 85 L80 85" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" fill="none" />
+                
+                <!-- The Mechanical Eye Housing -->
+                <circle cx="65" cy="75" r="22" fill="#FFFFFF" stroke="url(#cyberCyan)" stroke-width="3" />
+                <circle cx="65" cy="75" r="18" fill="#0A192F" />
+
+                <!-- The Animated "Blinking" Core Iris -->
+                <g clip-path="url(#eyeShutterClip)">
+                    <!-- Core Glow Orb -->
+                    <circle class="glowing-iris" cx="65" cy="75" r="14" fill="url(#neonGlow)" />
+                    <!-- Pupil Reflection/Spec Dot -->
+                    <circle cx="61" cy="71" r="3" fill="#FFFFFF" opacity="0.9" />
+                    <!-- Cyber Reticle Lines -->
+                    <circle cx="65" cy="75" r="9" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="4,2" fill="none" opacity="0.6" />
+                </g>
+                
+                <!-- Futuristic Outer Swoosh Accents -->
+                <path d="M102 60 C115 75, 110 95, 100 105" fill="none" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M28 90 C20 80, 22 60, 32 50" fill="none" stroke="#4364F7" stroke-width="1.5" stroke-linecap="round" />
+            </g>
+
+            <!-- ================= RIGHT SIDE: "IOS" TEXT ================= -->
+            <!-- Deep Tech Blue Typography matching your brand profile -->
+            <text x="145" y="112" font-family="Arial, sans-serif" font-size="82" font-weight="900" fill="#0A2540" letter-spacing="-2">IOS</text>
+
+            <!-- ================= BOTTOM SIDE: SUB-TEXT SUB-HEADLINE ================= -->
+            <!-- Configured to align directly underneath across the full length -->
+            <text x="210" y="152" font-family="Arial, sans-serif" font-size="15.5" font-weight="600" fill="#627D98" letter-spacing="1.2" text-anchor="middle">
+                Agentic Incident Operating System
+            </text>
+        </svg>
+        <!-- AIOS SVG ENDS HERE -->
+    </div>
+
+</body>
+</html>

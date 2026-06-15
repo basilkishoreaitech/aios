@@ -1,0 +1,19 @@
+{
+  "id": "scenario_06_dns",
+  "name": "DNS Resolution Failure on auth-service",
+  "description": "The authentication service is unable to reach the upstream identity provider due to DNS failure.",
+  "category": "dns",
+  "expected_risk_level": "medium",
+  "expected_diagnosis": "Temporary name resolution failure (socket.gaierror) prevents auth-service from contacting identity provider.",
+  "alert_payload": {
+    "alert_name": "NameResolutionError",
+    "service_name": "auth-service",
+    "severity": "SEV-2",
+    "timestamp": "2026-06-07T02:40:00Z",
+    "details": "socket.gaierror: [Errno -3] Temporary failure in name resolution when connecting to auth-service.identity.provider.",
+    "metrics": {
+      "failed_dns_queries": 45,
+      "auth_failure_pct": 100.0
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "incident_3891_memory_leak",
+  "title": "Postmortem - Incident #3891: API Gateway Outage due to Memory Leak",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #3891: API Gateway Outage due to Memory Leak\n\n### Incident Summary\nOn March 28, the api-gateway experienced gradual degradation and eventual outage due to RAM exhaustion. The pods were OOMKilled by Kubernetes.\n\n### Root Cause\nA memory leak in the log formatting library caused objects to pile up in heap memory. As incoming load grew, heap capacity was exceeded.\n\n### Resolution\nTriggered a rollout restart of the deployment to recycle the pods, clearing RAM immediately. The log library was updated to the latest stable version in the next release cycle.\n\n### Action Items\n- Configure Prometheus alert to fire when memory usage > 85% for more than 10 minutes.\n- Set memory limits in kubernetes pod definition.",
+  "tags": ["memory-leak", "oomkilled", "restart", "log-library", "api-gateway"]
+}

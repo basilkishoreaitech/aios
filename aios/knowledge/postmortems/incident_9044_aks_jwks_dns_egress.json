@@ -1,0 +1,7 @@
+{
+  "id": "incident_9044_aks_jwks_dns_egress",
+  "title": "Postmortem - Incident #9044: AKS Authentication Failure Caused by JWKS DNS/Egress Breakage",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #9044: AKS Authentication Failure Caused by JWKS DNS/Egress Breakage\n\n### Incident Summary\nAfter a network policy change, several AKS-hosted services began rejecting valid bearer tokens and some pods failed during startup. The issue affected customer-facing APIs that validated tokens against an external identity provider.\n\n### Root Cause\nOutbound DNS and HTTPS connectivity to the JWKS/discovery endpoint was unintentionally broken. Applications could not refresh signing keys, which caused authentication failures and rollout instability.\n\n### Resolution\n- Confirmed failures from inside the cluster using pod-level DNS and HTTPS connectivity checks.\n- Identified an egress path regression affecting the node pool.\n- Restored outbound access and validated successful JWKS retrieval before resuming rollout.\n\n### Lessons Learned\n- Identity-provider reachability is a production dependency and must be included in egress validation.\n- Token validation failures can be caused by DNS or egress outages, not only bad tokens or app bugs.\n- Cluster change reviews should explicitly include external auth dependencies.",
+  "tags": ["azure", "aks", "jwks", "dns", "egress", "token-validation", "network-policy", "incident-history"]
+}

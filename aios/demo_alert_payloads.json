@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Lambda timeout with downstream DB stall",
+    "service": "lm-lambda",
+    "severity": "SEV-2",
+    "raw_alert": "ALERT: lm-lambda timeout after 10 minutes during reconciliation job execution. CloudWatch duration reached function timeout ceiling. Postgres lock waits increasing and queue backlog growing.",
+    "expected_grounding": [
+      "incident_d0704a18-629e-481f-8001-1930b804a1ee_postmortem",
+      "incident_7814_lambda_timeout_lock_contention",
+      "runbook_lambda_downstream_timeout_recovery"
+    ],
+    "demo_goal": "Show dependency-aware root cause reasoning and safe backlog mitigation guidance."
+  },
+  {
+    "name": "ECS repeated draining health-check failure",
+    "service": "ecs-fargate-01",
+    "severity": "SEV-2",
+    "raw_alert": "ALERT: ecs-fargate-01 tasks are draining every 10 seconds. Target group health is unhealthy and tasks are replaced before startup completes.",
+    "expected_grounding": [
+      "incident_06dac989-6304-44b8-b60b-9b88f1cd4a87_postmortem",
+      "incident_8842_ecs_healthcheck_drain",
+      "runbook_ecs_task_draining_recovery"
+    ],
+    "demo_goal": "Show task-startup versus code-crash differentiation and health-check remediation."
+  },
+  {
+    "name": "Azure Functions broken Key Vault reference",
+    "service": "func-order-sync",
+    "severity": "SEV-2",
+    "raw_alert": "ALERT: Azure Function app failing after deployment. Key Vault secret reference not resolving, managed identity access errors in startup logs, HTTP triggers returning 500.",
+    "expected_grounding": [
+      "incident_8931_azure_functions_keyvault_ref",
+      "runbook_azure_functions_keyvault_secret_resolution"
+    ],
+    "demo_goal": "Show Azure-specific configuration and identity troubleshooting."
+  },
+  {
+    "name": "AKS JWKS DNS or egress outage",
+    "service": "checkout-api",
+    "severity": "SEV-1",
+    "raw_alert": "ALERT: checkout-api pods failing token validation. Unable to fetch JWKS endpoint from AKS cluster, DNS resolution intermittent, outbound HTTPS egress suspected broken.",
+    "expected_grounding": [
+      "incident_9044_aks_jwks_dns_egress",
+      "runbook_aks_jwks_dns_egress_failure",
+      "runbook_dns_resolution_troubleshoot"
+    ],
+    "demo_goal": "Show identity-provider dependency mapping and cluster egress reasoning."
+  },
+  {
+    "name": "AWS Lambda private VPC NAT egress loss",
+    "service": "auth-lambda",
+    "severity": "SEV-2",
+    "raw_alert": "ALERT: auth-lambda in private VPC is timing out after subnet change. Cannot reach JWKS and partner API endpoints. NAT gateway or route table egress may be missing.",
+    "expected_grounding": [
+      "incident_9150_aws_lambda_vpc_nat",
+      "runbook_lambda_downstream_timeout_recovery"
+    ],
+    "demo_goal": "Show cloud-network root cause analysis for AWS serverless workloads."
+  },
+  {
+    "name": "Payment provider latency with customer impact",
+    "service": "payment-service",
+    "severity": "SEV-1",
+    "raw_alert": "ALERT: payment-service latency above 15s on /charge. Checkout requests timing out and thread pools saturated. External payment provider suspected degraded.",
+    "expected_grounding": [
+      "incident_5102_external_dep"
+    ],
+    "demo_goal": "Show blast radius communication and circuit-breaker style mitigations."
+  }
+]

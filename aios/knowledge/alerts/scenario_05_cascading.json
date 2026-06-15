@@ -1,0 +1,20 @@
+{
+  "id": "scenario_05_cascading",
+  "name": "Cascading Failure Across Purchase Flows",
+  "description": "Simultaneous alerts triggered from multiple dependent microservices.",
+  "category": "cascading",
+  "expected_risk_level": "critical",
+  "expected_diagnosis": "Cascading failure initiated by database lock contention in db-service, propagating up to inventory-service and order-service.",
+  "alert_payload": {
+    "alert_name": "MultipleServiceOutageAlert",
+    "service_name": "order-service",
+    "severity": "SEV-1",
+    "timestamp": "2026-06-07T02:46:00Z",
+    "details": "Alerts triggered: order-service HTTP 503, inventory-service gRPC timeout, db-service lock acquisition timeout.",
+    "metrics": {
+      "order_service_error_rate": 95.0,
+      "inventory_service_latency_ms": 12000.0,
+      "db_service_active_locks": 240
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "scenario_09_disk_io",
+  "name": "Database Disk I/O Saturation on postgres-primary",
+  "description": "High read/write disk IOPS causing high latency on the primary database.",
+  "category": "database",
+  "expected_risk_level": "medium",
+  "expected_diagnosis": "PostgreSQL database primary disk write latency > 500ms due to heavy swap I/O from unindexed queries.",
+  "alert_payload": {
+    "alert_name": "DiskIOPSExceeded",
+    "service_name": "postgres-primary",
+    "severity": "SEV-2",
+    "timestamp": "2026-06-07T02:41:00Z",
+    "details": "Disk IOPS utilization reached 98% on database storage. Average write response time is 550ms.",
+    "metrics": {
+      "disk_utilization_pct": 98.0,
+      "write_latency_ms": 550.0,
+      "read_iops": 15000
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "incident_6023_cascading_failure",
+  "title": "Postmortem - Incident #6023: Cascading Failure across Order and Inventory Services",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #6023: Cascading Failure across Order and Inventory Services\n\n### Incident Summary\nOn May 10, multiple alerts fired simultaneously for order-service, inventory-service, and db-service. Request queue depths filled up rapidly, causing an outage across all purchasing flows.\n\n### Root Cause\nThe db-service database server lock contention occurred due to a long-running reporting query. This caused db-service responses to inventory-service to slow down. Inventory-service threads blocked waiting for db-service, which in turn blocked order-service. The system collapsed due to cascading timeout propagation.\n\n### Resolution\nRather than executing a shotgun restart of all services (which would fail again instantly), the database administrator terminated the long-running reporting query on db-service. Once database locks were released, downstream services recovered automatically within 5 minutes.\n\n### Action Items\n- Separate transactional and analytical/reporting databases.\n- Enforce strict gRPC timeouts of 2 seconds between microservices.",
+  "tags": ["cascading", "timeout", "lock-contention", "postgres", "db-service"]
+}

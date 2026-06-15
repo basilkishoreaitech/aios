@@ -1,0 +1,41 @@
+# Competitive Research & Ideas
+contest/
+draftidea/
+
+# Local Dev Checklists & Implementation Plans
+implementation_plan.md
+task.md
+walkthrough.md
+DEMO_GUIDE.md
+WALKTHROUGH_VOICEOVER.md
+
+# Terraform state and secrets — never commit
+aios/terraform/main.tfvars.json
+aios/terraform/*.tfstate
+aios/terraform/*.tfstate.backup
+aios/terraform/crash.log
+
+# Inner Project Env / Local Database / Virtualenv (Safeguard)
+aios/.env
+aios/*.env
+aios/.env.*
+aios/.cli_token
+aios/*.db
+aios/*.sqlite3
+aios/appservice-deploy.zip
+aios/venv/
+aios/.venv/
+aios/env/
+aios/__pycache__/
+**/__pycache__/
+aios/*.log
+aios/.pytest_cache/
+aios/terraform/.terraform/
+aios/terraform/.terraform.lock.hcl
+aios/terraform/tfplan
+
+# Generated postmortem files (created at runtime, not source)
+aios/knowledge/postmortems/incident_*_postmortem.json
+
+# Local Scripts
+*.ps1

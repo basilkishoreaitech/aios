@@ -1,0 +1,7 @@
+{
+  "id": "runbook_dns_resolution_troubleshoot",
+  "title": "DNS Resolution Troubleshooting and Cache Flush",
+  "category": "runbook",
+  "content": "DNS Resolution Troubleshooting and Cache Flush:\n\n### Symptoms\n- Log entries showing: 'socket.gaierror: [Errno -3] Temporary failure in name resolution'.\n- Services unable to authenticate with OAuth/Identity providers due to unreachable URL.\n- Curl requests failing with 'Could not resolve host'.\n\n### Diagnosis\n1. Verify if DNS resolution works from inside the container:\n   kubectl exec <pod_name> -- nslookup auth-service.identity.provider\n2. Inspect the resolver configurations file:\n   kubectl exec <pod_name> -- cat /etc/resolv.conf\n\n### Safe Mitigation Steps\nOption A: Flush local CoreDNS cache\n- If running inside Kubernetes, rollout CoreDNS deployment:\n  kubectl rollout restart deployment coredns -n kube-system\n\nOption B: Temporary resolver host bypass\n- Inject direct host-IP mapping in Kubernetes deployment Spec or hosts file to bypass DNS temporarily:\n  echo '192.168.10.45 auth-service.identity.provider' >> /etc/hosts\n\n### Rollback Plan\nVerify system connectivity using nslookup. Remove temporary /etc/hosts mappings once DNS resolvers recover.",
+  "tags": ["dns", "nslookup", "resolv.conf", "coredns", "hosts"]
+}

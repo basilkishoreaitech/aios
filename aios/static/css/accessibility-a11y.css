@@ -1,0 +1,38 @@
+/* Keyboard navigation and screen reader adjustments */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode overrides */
+@media (prefers-contrast: more) {
+  :root {
+    --bg-color: #ffffff;
+    --border-color: #000000;
+    --border-focus: #0000ff;
+    --text-primary: #000000;
+    --text-secondary: #111111;
+    --primary: #0000ff;
+  }
+  
+  .panel {
+    border-width: 2px;
+  }
+}
+
+/* Large text helper classes */
+.accessible-large-text {
+  font-size: 1.15rem !important;
+  line-height: 1.6 !important;
+}

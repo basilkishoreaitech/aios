@@ -1,0 +1,7 @@
+{
+  "id": "runbook_certificate_renewal",
+  "title": "TLS SSL Certificate Emergency Renewal",
+  "category": "runbook",
+  "content": "TLS SSL Certificate Emergency Renewal:\n\n### Symptoms\n- Load Balancer health checks returning 'ssl_handshake_error'.\n- Users getting 'NET::ERR_CERT_DATE_INVALID' in browsers.\n- Automated API requests failing with certificate validation errors.\n\n### Diagnosis\n1. Check certificate validity dates manually via openssl:\n   openssl s_client -connect api.gateway.prod:443 -servername api.gateway.prod | openssl x509 -noout -dates\n\n### Safe Mitigation Steps\nOption A: Auto-Renewal via Let's Encrypt / Certbot\n- Run renewal command on the gateway server:\n  certbot renew --non-interactive --agree-tos\n- Force reload nginx or ingress controller after renewal:\n  nginx -s reload\n\nOption B: Upload pre-generated SSL certs\n- Retrieve cert from vault and update secrets:\n  kubectl create secret tls ingress-tls-secret --key=privkey.pem --cert=fullchain.pem --dry-run=client -o yaml | kubectl apply -f -\n\n### Rollback Plan\nVerify SSL handshake using openssl. If the new cert fails, revert secrets back to backup credentials.",
+  "tags": ["tls", "ssl", "certificate", "renewal", "openssl"]
+}

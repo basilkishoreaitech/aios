@@ -1,0 +1,7 @@
+{
+  "id": "runbook_api_gateway_restart",
+  "title": "API Gateway Safe Restart Runbook",
+  "category": "runbook",
+  "content": "API Gateway Safe Restart Runbook:\n\n### Objective\nSafely restart api-gateway instances in production to clear memory leaks, socket congestion, or stuck configurations without causing service disruption.\n\n### Prerequisites\n- Confirm traffic is routed to redundant nodes before doing any single node restart.\n- Verify gateway status via curl -k https://api-gateway/health.\n\n### Safe Restart Protocol\n1. Target a single instance: api-gateway-pod-1 or api-gateway-pod-2.\n2. Gracefully drain traffic from the target node:\n   kubectl exec <pod_name> -- drain-connections.sh\n3. Execute the restart command:\n   kubectl rollout restart deployment api-gateway\n4. Monitor traffic shifting and verify health check returns 200 OK after 30 seconds:\n   curl -I https://api-gateway/health\n\n### Rollback Plan\nIf health check fails, immediately route traffic back to the standby cluster and abort rollouts.",
+  "tags": ["api-gateway", "restart", "drain", "k8s"]
+}

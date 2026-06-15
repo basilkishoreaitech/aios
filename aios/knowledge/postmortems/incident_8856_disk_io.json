@@ -1,0 +1,7 @@
+{
+  "id": "incident_8856_disk_io",
+  "title": "Postmortem - Incident #8856: Postgres Primary Disk I/O Saturation",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #8856: Postgres Primary Disk I/O Saturation\n\n### Incident Summary\nOn June 1, database write latencies rose past 800ms, causing database connection timeouts. The application was severely degraded.\n\n### Root Cause\nA batch analytics job running at peak time triggered heavy unindexed joins. This caused excessive disk read/write swapping on the primary server storage.\n\n### Resolution\nIdentified the rogue query execution PID using pg_stat_activity. Terminated the batch process, and applied an index on the join column (transaction_id). Write latency immediately normalized below 10ms.\n\n### Action Items\n- Disable analytics scripts on the production primary DB; redirect all analytical reads to the read-replica.\n- Implement disk IO alert threshold at 85% utilization.",
+  "tags": ["postgres", "disk-io", "write-latency", "indexing", "pg_stat_activity"]
+}

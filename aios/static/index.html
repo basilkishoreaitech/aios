@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIOS — Agentic Incident Operating System</title>
+  <link rel="icon" type="image/svg+xml" href="/static/assets/logo.svg">
+  <link rel="stylesheet" href="/static/css/styles.css?v=4">
+  <link rel="stylesheet" href="/static/css/reasoning-canvas.css?v=7">
+  <link rel="stylesheet" href="/static/css/animations.css?v=4">
+  <link rel="stylesheet" href="/static/css/accessibility-a11y.css?v=4">
+</head>
+<body>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container"></div>
+
+  <div id="login-screen" style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+    <form id="login-form" class="rise-in" style="padding: 2.25rem; width: 100%; max-width: 410px;">
+      <div style="text-align: center; margin-bottom: 1.75rem;">
+        <svg class="aios-logo-login" viewBox="0 5 420 155" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cyberCyan-l" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0052D4"/><stop offset="50%" stop-color="#4364F7"/><stop offset="100%" stop-color="#6FB1FC"/>
+            </linearGradient>
+            <linearGradient id="neonGlow-l" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#007BFF"/>
+            </linearGradient>
+            <linearGradient id="iosTextGrad-l" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1e3a8a"/><stop offset="45%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#93c5fd"/>
+            </linearGradient>
+            <filter id="iosGlow-l" x="-5%" y="-10%" width="115%" height="130%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#3b82f6" flood-opacity="0.45"/>
+            </filter>
+            <clipPath id="eyeShutterClip-l">
+              <circle class="animated-eyelid" cx="65" cy="75" r="16"/>
+            </clipPath>
+          </defs>
+          <g transform="translate(10,0)">
+            <path d="M65 15 L115 115 L92 115 L80 90 L50 90 L38 115 L15 115 Z" fill="url(#cyberCyan-l)"/>
+            <path d="M65 30 L100 105 L86 105 L75 80 L55 80 L44 105 L30 105 Z" fill="#FFFFFF"/>
+            <path class="moving-circuit" d="M65 35 L90 92 M65 35 L40 92 M50 85 L80 85" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="65" cy="75" r="22" fill="#FFFFFF" stroke="url(#cyberCyan-l)" stroke-width="3"/>
+            <circle cx="65" cy="75" r="18" fill="#0A192F"/>
+            <g clip-path="url(#eyeShutterClip-l)">
+              <circle class="glowing-iris" cx="65" cy="75" r="14" fill="url(#neonGlow-l)"/>
+              <circle cx="61" cy="71" r="3" fill="#FFFFFF" opacity="0.9"/>
+              <circle cx="65" cy="75" r="9" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="4,2" fill="none" opacity="0.6"/>
+            </g>
+            <path d="M102 60 C115 75, 110 95, 100 105" fill="none" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M28 90 C20 80, 22 60, 32 50" fill="none" stroke="#4364F7" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <text x="145" y="112" font-family="'Segoe UI','Inter',Arial,sans-serif" font-size="82" font-weight="900" fill="url(#iosTextGrad-l)" filter="url(#iosGlow-l)" letter-spacing="-2">IOS</text>
+          <text x="210" y="148" font-family="'Segoe UI','Inter',Arial,sans-serif" font-size="15" font-weight="600" fill="#627D98" letter-spacing="2" text-anchor="middle">Agentic Incident Operating System</text>
+        </svg>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.25rem;">Username</label>
+        <input type="text" id="login-username" value="engineer" style="width:100%; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px;" autocomplete="username" />
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.25rem;">Password</label>
+        <input type="password" id="login-password" value="aios-eng-2026" style="width:100%; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px;" autocomplete="current-password" />
+      </div>
+      <button type="submit" id="btn-login-submit" style="width:100%; padding:0.7rem; background:linear-gradient(135deg,#2563eb,#4f46e5,#06b6d4); background-size:180% 180%; color:#ffffff; border:none; border-radius:var(--radius-sm); font-weight:700; cursor:pointer; font-size:0.95rem; letter-spacing:0.01em; transition:transform 0.15s ease, box-shadow 0.15s ease; box-shadow:0 0 0 1px rgba(37,99,235,0.25),0 8px 24px -6px rgba(37,99,235,0.35);">Sign In</button>
+      <div style="font-size:0.7rem; color:var(--text-muted); text-align:center; margin-top:1rem;">
+        Demo accounts: engineer / aios-eng-2026 or admin / aios-admin-2026
+      </div>
+    </form>
+  </div>
+
+  <!-- Main App Layout (Hidden by default) -->
+  <div id="app-screen" class="app-container" style="display: none;">
+    <header>
+      <div class="logo-section aios-header-brand">
+        <svg class="aios-logo-header" viewBox="0 8 395 112" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cyberCyan-h" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0052D4"/><stop offset="50%" stop-color="#4364F7"/><stop offset="100%" stop-color="#6FB1FC"/>
+            </linearGradient>
+            <linearGradient id="neonGlow-h" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#007BFF"/>
+            </linearGradient>
+            <linearGradient id="iosTextGrad-h" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1e3a8a"/><stop offset="45%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#93c5fd"/>
+            </linearGradient>
+            <filter id="iosGlow-h" x="-5%" y="-10%" width="115%" height="130%">
+              <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#3b82f6" flood-opacity="0.4"/>
+            </filter>
+            <clipPath id="eyeShutterClip-h">
+              <circle class="animated-eyelid" cx="65" cy="75" r="16"/>
+            </clipPath>
+          </defs>
+          <g transform="translate(10,0)">
+            <path d="M65 15 L115 115 L92 115 L80 90 L50 90 L38 115 L15 115 Z" fill="url(#cyberCyan-h)"/>
+            <path d="M65 30 L100 105 L86 105 L75 80 L55 80 L44 105 L30 105 Z" fill="#FFFFFF"/>
+            <path class="moving-circuit" d="M65 35 L90 92 M65 35 L40 92 M50 85 L80 85" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="65" cy="75" r="22" fill="#FFFFFF" stroke="url(#cyberCyan-h)" stroke-width="3"/>
+            <circle cx="65" cy="75" r="18" fill="#0A192F"/>
+            <g clip-path="url(#eyeShutterClip-h)">
+              <circle class="glowing-iris" cx="65" cy="75" r="14" fill="url(#neonGlow-h)"/>
+              <circle cx="61" cy="71" r="3" fill="#FFFFFF" opacity="0.9"/>
+              <circle cx="65" cy="75" r="9" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="4,2" fill="none" opacity="0.6"/>
+            </g>
+            <path d="M102 60 C115 75, 110 95, 100 105" fill="none" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M28 90 C20 80, 22 60, 32 50" fill="none" stroke="#4364F7" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <text x="145" y="112" font-family="'Segoe UI','Inter',Arial,sans-serif" font-size="82" font-weight="900" fill="url(#iosTextGrad-h)" filter="url(#iosGlow-h)" letter-spacing="-2">IOS</text>
+        </svg>
+        <span class="brand-badge aios-live-badge">&#9679; LIVE</span>
+      </div>
+
+      <!-- Search Section removed (moved to floating widget) -->
+
+      <div class="controls-section">
+        <!-- Text Size Controls -->
+        <div style="display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; margin-right: 0.5rem;">
+          <button id="btn-text-decrease" style="padding: 0.35rem 0.55rem; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: none; cursor: pointer; border-right: 1px solid var(--border-color); font-weight: bold; font-size:0.8rem;">A-</button>
+          <span id="text-size-display" style="padding: 0 0.45rem; font-size: 0.78rem; color: var(--text-primary); background: rgba(255,255,255,0.02);">100%</span>
+          <button id="btn-text-increase" style="padding: 0.35rem 0.55rem; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: none; cursor: pointer; border-left: 1px solid var(--border-color); font-weight: bold; font-size:0.8rem;">A+</button>
+        </div>
+
+        <!-- KB Upload (admin + operator only, shown after login) -->
+        <button id="btn-kb-upload-header" style="display:none; padding:0.45rem 0.9rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:var(--radius-sm); font-weight:600; font-size:0.8rem; cursor:pointer; margin-right:0.25rem;" title="Upload knowledge document to KB &amp; Azure AI Search">📤 Upload KB</button>
+
+        <button id="btn-focus-mode" class="btn-toggle" title="Focus Mode — collapse side panels into a 3-column reasoning workspace">🔍 Focus</button>
+        <button id="btn-view-eng" class="btn-toggle active">👩‍💻 Engineer</button>
+        <button id="btn-view-exec" class="btn-toggle">👔 Executive</button>
+        <button id="btn-logout" class="btn-toggle" style="border:none; color:var(--danger);">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- Main Layout Wrapper — 4-column grid -->
+    <div id="layout-wrapper" class="main-layout">
+
+      <!-- Col 1: Incident Explorer -->
+      <aside id="panel-explorer" class="panel" style="display:flex; flex-direction:column; min-height:0; height:100%;">
+        <div class="panel-header" style="justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
+            <button id="btn-toggle-explorer" class="collapse-btn" title="Toggle Explorer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <span class="hidden-when-collapsed">⚙️ Incident Explorer</span>
+          </div>
+          <span id="pipeline-status-indicator" class="hidden-when-collapsed" style="font-size:0.65rem; padding:0.15rem 0.45rem; border-radius:3px; background:var(--border-color); color:var(--text-secondary); font-weight:700; letter-spacing:0.04em;">IDLE</span>
+        </div>
+        <div class="panel-content" style="display:flex; flex-direction:column; gap:1rem; height:100%;">
+          <!-- Live Ingestion -->
+          <div>
+            <h4 class="section-title">🚀 Live Incident Intake</h4>
+            <div style="font-size:0.74rem; color:var(--text-secondary); margin-bottom:0.75rem; padding:0.6rem 0.75rem; background:var(--bg-color); border-radius:6px; border:1px dashed var(--border-color); line-height:1.4;">
+              Submit an alert to run the full 11-agent AI pipeline against Azure OpenAI &amp; Foundry IQ.
+            </div>
+            <button id="btn-custom-alert-modal" style="width:100%; padding:0.6rem; background:var(--primary); color:#fff; border:none; border-radius:6px; font-size:0.8rem; font-weight:700; cursor:pointer;">▶ Run Custom Alert</button>
+          </div>
+          <!-- Historic Explorer -->
+          <div style="flex-grow:1; display:flex; flex-direction:column; min-height:0; overflow:hidden;">
+            <h4 class="section-title">📚 Incident History</h4>
+            <div id="incident-explorer-container" style="flex-grow:1; min-height:0; overflow:auto;"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Col 2: Evidence (top) + Diagnostics & Actions (bottom) -->
+      <div class="col-split" id="col-main">
+        <!-- Top: Evidence -->
+        <section class="panel panel-half" id="panel-evidence">
+          <div class="panel-header">
+            <span>📁 Incident Evidence</span>
+            <span style="font-size:0.68rem; color:var(--text-muted);" id="evidence-service-tag">No Alert</span>
+          </div>
+          <div class="panel-content" id="evidence-panel-container"></div>
+        </section>
+
+        <!-- Bottom: Diagnostics & Actions -->
+        <section class="panel panel-half" id="panel-actions">
+          <div class="panel-header">
+            <span>🛠️ Diagnostics &amp; Actions</span>
+            <div style="display:flex; gap:0.4rem; align-items:center;">
+              <button id="btn-export-postmortem" style="display:none; padding:0.3rem 0.65rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer;">📄 Export</button>
+              <button id="btn-resolve-outage" style="display:none; padding:0.3rem 0.65rem; background:var(--success); color:#fff; border:none; border-radius:4px; font-size:0.72rem; font-weight:600; cursor:pointer;">🏁 Resolve</button>
+            </div>
+          </div>
+          <div class="panel-content" style="display:flex; flex-direction:column; gap:1rem;">
+            <div>
+              <h4 class="section-title">🛡️ Proposed Actions <span id="actions-count-tag" style="float:right; text-transform:none; font-weight:500; letter-spacing:0;">0 Actions</span></h4>
+              <div id="decision-panel-container"></div>
+            </div>
+            <div id="collaborative-hint-panel" style="display:none; padding:0.85rem; border:1px solid var(--border-color); border-radius:var(--radius-sm); background:var(--card-bg);">
+              <h4 style="font-weight:600; font-size:0.72rem; text-transform:uppercase; color:var(--text-secondary); margin-bottom:0.45rem; letter-spacing:0.05em;">🤝 Add Context or Hint</h4>
+              <div style="display:flex; gap:0.4rem;">
+                <input type="text" id="operator-hint-input" placeholder="e.g. verified replication lag recovered..." style="flex-grow:1; padding:0.45rem; border:1px solid var(--border-color); border-radius:4px; font-size:0.78rem;" />
+                <button id="btn-submit-hint" style="padding:0.45rem 0.9rem; background:var(--primary); color:#fff; border:none; border-radius:4px; font-size:0.78rem; font-weight:600; cursor:pointer;">Submit</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Col 3: AI Reasoning Canvas (narrow compact list) -->
+      <section class="panel" id="panel-ai-canvas" style="display:flex; flex-direction:column; min-height:0; height:100%;">
+        <div class="panel-header" style="padding:0.75rem 0.85rem; justify-content:space-between;">
+          <span style="font-size:0.85rem;">🧠 AI Reasoning</span>
+          <span id="canvas-run-badge" style="font-size:0.6rem; padding:0.1rem 0.4rem; border-radius:3px; background:var(--border-color); color:var(--text-muted); font-weight:700; letter-spacing:0.04em;">IDLE</span>
+        </div>
+        <div style="flex-grow:1; overflow-y:auto; padding:0.5rem 0.4rem; min-height:0;">
+          <div id="reasoning-chain-container"></div>
+        </div>
+        <!-- Inline agent trace detail panel (no popup) -->
+        <div id="agent-trace-inline" style="display:none; border-top:1px solid var(--border-color); background:var(--card-bg-alt); flex-shrink:0; overflow-y:auto; max-height:44%;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0.75rem 0.3rem;">
+            <span id="agent-trace-inline-title" style="font-size:0.76rem; font-weight:700; color:var(--primary); line-height:1.2;"></span>
+            <button id="btn-agent-trace-close" style="background:none; border:none; cursor:pointer; color:var(--text-muted); font-size:0.9rem; padding:0; line-height:1;">✕</button>
+          </div>
+          <div id="agent-trace-inline-body" style="padding:0 0.75rem 0.65rem; font-size:0.73rem; line-height:1.5;"></div>
+        </div>
+        <div id="observability-container" style="display:none;"></div>
+      </section>
+
+      <section class="panel panel-chat" id="panel-chat">
+        <div id="chat-col-resizer" class="chat-col-resizer" title="Drag to resize chat panel"></div>
+        <div id="chat-interface-container" style="height:100%; display:flex; flex-direction:column;"></div>
+      </section>
+
+    </div>
+
+  <!-- ═══ Floating Action Buttons (inside app-screen so hidden during login) ═══ -->
+  <!-- Bottom-left: Incident Explorer FAB -->
+  <button id="fab-explorer" class="aios-fab fab-explorer" title="Incident Explorer" aria-label="Open Incident Explorer">
+    <span class="fab-glow-ring"></span>
+    <span class="fab-glow-ring fab-glow-ring-2"></span>
+    <svg class="fab-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 2.5 L24.1 8.25 L24.1 19.75 L14 25.5 L3.9 19.75 L3.9 8.25 Z" stroke="white" stroke-width="1.4" fill="rgba(255,255,255,0.1)"/>
+      <line x1="8" y1="10" x2="20" y2="10" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="8" y1="14" x2="20" y2="14" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="16" y2="18" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <span class="fab-label">IE</span>
+    <span id="fab-explorer-dot" class="fab-dot" style="display:none;"></span>
+  </button>
+
+  <!-- Bottom-right: AI Chatbot FAB -->
+  <button id="fab-chat" class="aios-fab fab-chat" title="AIOS Assistant" aria-label="Open AI Assistant">
+    <span class="fab-glow-ring"></span>
+    <span class="fab-glow-ring fab-glow-ring-2"></span>
+    <svg class="fab-icon" viewBox="0 0 48 48" width="22" height="22" fill="none">
+      <path d="M24 3.5 6.5 10.5v11.2c0 11.1 7.4 19.4 17.5 22.8 10.1-3.4 17.5-11.7 17.5-22.8V10.5L24 3.5z"
+            fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.7)" stroke-width="1.6"/>
+      <path d="M26.4 13 16.5 26.2h6.6L21 35l10.4-13.6h-6.9L26.4 13z" fill="#fff"/>
+    </svg>
+    <span class="fab-label">AI</span>
+    <span id="fab-chat-dot" class="fab-dot" style="display:none;"></span>
+  </button>
+
+  <!-- Resolve Outage Modal -->
+  <div id="resolve-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; align-items:center; justify-content:center; z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);">
+    <div class="fade-in" style="padding:2rem; border-radius:var(--radius-md); background:var(--card-bg); max-width:480px; width:100%; box-shadow:var(--shadow-lg);">
+      <h3 style="font-family:var(--font-display); font-weight:700; margin-bottom:0.5rem; color:var(--primary);">🏁 Close Incident Outage</h3>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1rem;">Describe the verified root cause and how it was fixed. AIOS will automatically verify the diagnosis and save a new Incident Report document.</p>
+      <textarea id="resolve-root-cause" placeholder="Example: Pushed rollback code to production. Idle connection transactions in v2.3 were resolved and terminated." 
+                style="width:100%; height:100px; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px; font-family:var(--font-sans); font-size:0.85rem; margin-bottom:1.5rem;"></textarea>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button id="btn-modal-cancel" style="padding:0.5rem 1rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">Cancel</button>
+        <button id="btn-modal-submit" style="padding:0.5rem 1rem; background:var(--success); color:#ffffff; border:none; border-radius:4px; cursor:pointer; font-weight:600;">Resolve Outage</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div id="custom-ingest-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; align-items:center; justify-content:center; z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);">
+    <div class="fade-in" style="padding:2rem; border-radius:var(--radius-md); background:var(--card-bg); max-width:500px; width:100%; box-shadow:var(--shadow-lg);">
+      <h3 style="font-family:var(--font-display); font-weight:700; margin-bottom:0.5rem; color:var(--primary);">🛡️ Run Custom Alert</h3>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1rem;">Enter the details of a custom alert. AIOS will automatically analyze the symptoms and propose actions.</p>
+      
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.25rem;">Service Name</label>
+        <input type="text" id="custom-alert-service" placeholder="e.g. db-replica-01" style="width:100%; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px; font-size:0.85rem; background:var(--bg-color); color:var(--text-primary);" />
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.25rem;">Severity</label>
+        <select id="custom-alert-severity" style="width:100%; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px; font-size:0.85rem; background:var(--bg-color); color:var(--text-primary);">
+          <option value="SEV-1">SEV-1 (Critical)</option>
+          <option value="SEV-2">SEV-2 (High)</option>
+          <option value="SEV-3">SEV-3 (Medium)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <label style="display:block; font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.25rem;">Alert Symptoms / Details</label>
+        <textarea id="custom-alert-details" placeholder="e.g. Replication lag exceeded 300 seconds..." style="width:100%; height:80px; padding:0.5rem; border:1px solid var(--border-color); border-radius:4px; font-family:var(--font-sans); font-size:0.85rem; background:var(--bg-color); color:var(--text-primary);"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button id="btn-custom-ingest-cancel" style="padding:0.5rem 1rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">Cancel</button>
+        <button id="btn-custom-ingest-submit" style="padding:0.5rem 1rem; background:var(--primary); color:#ffffff; border:none; border-radius:4px; cursor:pointer; font-weight:600;">Run Alert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Postmortem Preview Modal -->
+  <div id="postmortem-preview-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; align-items:center; justify-content:center; z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);">
+    <div class="fade-in" style="padding:2rem; border-radius:var(--radius-md); background:var(--card-bg); max-width:800px; width:90%; max-height:85vh; display:flex; flex-direction:column; box-shadow:var(--shadow-lg);">
+      <h3 style="font-family:var(--font-display); font-weight:700; margin-bottom:0.5rem; color:var(--primary);">📄 Incident Report Preview</h3>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1rem; flex-shrink: 0;">This report is generated by the AIOS A10 Retrospective Agent and ready to be checked into the KB.</p>
+      <div id="postmortem-preview-content" style="flex-grow:1; overflow-y:auto; border:1px solid var(--border-color); border-radius:4px; padding:1.5rem; font-family:monospace; white-space:pre-wrap; background:#0f172a; color:#e2e8f0; font-size:0.85rem; margin-bottom:1.5rem;">
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button id="btn-postmortem-preview-close" style="padding:0.5rem 1rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">Close</button>
+        <button id="btn-postmortem-download" style="padding:0.5rem 1rem; background:var(--primary); color:#ffffff; border:none; border-radius:4px; cursor:pointer; font-weight:600;">Download Markdown</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KB Upload Modal (admin / operator) -->
+  <div id="kb-upload-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; align-items:center; justify-content:center; z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);">
+    <div class="fade-in" style="padding:2rem; border-radius:var(--radius-md); background:var(--card-bg); max-width:560px; width:100%; box-shadow:var(--shadow-lg);">
+      <h3 style="font-family:var(--font-display); font-weight:700; margin-bottom:0.4rem; color:var(--primary);">📤 Upload to Knowledge Base</h3>
+      <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:1.25rem;">Document will be saved to PostgreSQL, local disk, <strong>and</strong> indexed in Azure AI Search so the chatbot can retrieve it immediately.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.85rem;">
+        <div>
+          <label style="display:block; font-size:0.72rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.2rem;">Document ID</label>
+          <input type="text" id="kb-upload-id" placeholder="e.g. runbook_redis_failover" style="width:100%; padding:0.5rem; font-size:0.83rem;" />
+        </div>
+        <div>
+          <label style="display:block; font-size:0.72rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.2rem;">Category</label>
+          <select id="kb-upload-category" style="width:100%; padding:0.5rem; font-size:0.83rem;">
+            <option value="runbook">Runbook</option>
+            <option value="postmortem">Postmortem</option>
+            <option value="architecture">Architecture</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:0.85rem;">
+        <label style="display:block; font-size:0.72rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.2rem;">Title</label>
+        <input type="text" id="kb-upload-title" placeholder="e.g. Redis Sentinel Failover Recovery Runbook" style="width:100%; padding:0.5rem; font-size:0.83rem;" />
+      </div>
+
+      <div style="margin-bottom:0.85rem;">
+        <label style="display:block; font-size:0.72rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.2rem;">Content</label>
+        <textarea id="kb-upload-content" placeholder="Paste the full runbook / postmortem markdown or text here..." style="width:100%; height:120px; padding:0.5rem; font-size:0.82rem; font-family:var(--font-mono);"></textarea>
+      </div>
+
+      <div style="margin-bottom:1.25rem;">
+        <label style="display:block; font-size:0.72rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.2rem;">Tags <span style="font-weight:400;">(comma-separated)</span></label>
+        <input type="text" id="kb-upload-tags" placeholder="e.g. redis, cache, failover" style="width:100%; padding:0.5rem; font-size:0.83rem;" />
+      </div>
+
+      <div id="kb-upload-status" style="display:none; margin-bottom:1rem; padding:0.6rem 0.75rem; border-radius:6px; font-size:0.8rem; font-weight:500;"></div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button id="btn-kb-upload-cancel" style="padding:0.5rem 1rem; background:rgba(255,255,255,0.05); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">Cancel</button>
+        <button id="btn-kb-upload-submit" style="padding:0.5rem 1.25rem; background:var(--primary); color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:700;">Upload &amp; Index</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent Trace Detail Modal -->
+  <div id="agent-detail-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; align-items:center; justify-content:center; z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(4px);">
+    <div class="fade-in" style="padding:2rem; border-radius:var(--radius-md); background:var(--card-bg); max-width:640px; width:92%; max-height:82vh; display:flex; flex-direction:column; box-shadow:var(--shadow-lg);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <h3 id="agent-detail-title" style="font-family:var(--font-display); font-weight:700; color:var(--primary); font-size:1.1rem;"></h3>
+        <button id="btn-agent-detail-close" style="background:rgba(255,255,255,0.05); border:1px solid var(--border-color); border-radius:6px; width:30px; height:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);">✕</button>
+      </div>
+      <div id="agent-detail-body" style="overflow-y:auto; flex-grow:1; display:flex; flex-direction:column; gap:1rem;"></div>
+    </div>
+  </div>
+
+  <!-- Import JS scripts via type=module -->
+  <script type="module" src="/static/js/app.js?v=9"></script>
+
+</body>
+</html>

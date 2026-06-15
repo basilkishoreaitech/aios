@@ -1,0 +1,7 @@
+{
+  "id": "incident_8931_azure_functions_keyvault_ref",
+  "title": "Postmortem - Incident #8931: Azure Functions Outage from Broken Key Vault Reference",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #8931: Azure Functions Outage from Broken Key Vault Reference\n\n### Incident Summary\nA production Azure Function app began failing immediately after a release. Timer and HTTP-triggered executions returned configuration errors during startup, and the app failed to resolve required secrets.\n\n### Root Cause\nA Key Vault reference in application settings pointed to the wrong secret version after release. At the same time, the function app identity did not have confirmed access to the updated secret path, so the app could not recover through retries.\n\n### Resolution\n- Reviewed the function app configuration and identified the incorrect Key Vault reference.\n- Restored the correct secret reference and validated managed identity access to the vault.\n- Recycled the app and monitored successful secret resolution and trigger recovery.\n\n### Lessons Learned\n- Key Vault references must be validated as part of release checks.\n- Secret version pinning and RBAC drift can combine into a hard startup failure.\n- Deployment validation must include identity, networking, and configuration, not code only.",
+  "tags": ["azure", "functions", "key-vault", "managed-identity", "secret-reference", "startup-failure", "incident-history"]
+}

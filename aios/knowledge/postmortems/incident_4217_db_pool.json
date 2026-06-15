@@ -1,0 +1,7 @@
+{
+  "id": "incident_4217_db_pool",
+  "title": "Postmortem - Incident #4217: Database Connection Pool Exhaustion",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #4217: Database Connection Pool Exhaustion\n\n### Incident Summary\nOn March 12, the api-gateway-prod service went offline for 45 minutes due to connection pool exhaustion. Incoming requests received 504 gateway timeout errors.\n\n### Root Cause\nDeployment of api-gateway-prod v2.2 introduced a database transaction block that did not properly release the connection back to the pool. When incoming request rates peaked, all 5 available pool connections were held indefinitely in an 'idle in transaction' state.\n\n### Resolution\nThe on-call engineer identified the idle transactions and terminated them using pg_terminate_backend. The connection pool size was increased from 5 to 15 in the configuration to provide immediate relief. A code rollback to v2.1 was executed to resolve the transaction release bug.\n\n### Action Items\n- Add a middleware rule to enforce connection release on request completion.\n- Set transaction timeouts to automatic timeout of 60 seconds.",
+  "tags": ["postgres", "pool", "transaction", "rollback", "api-gateway"]
+}

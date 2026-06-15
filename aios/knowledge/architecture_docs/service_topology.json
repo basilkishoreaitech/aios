@@ -1,0 +1,12 @@
+[
+  {"source": "api-gateway", "target": "auth-service", "relationship_type": "http", "is_critical": true},
+  {"source": "api-gateway", "target": "payment-service", "relationship_type": "http", "is_critical": true},
+  {"source": "api-gateway", "target": "order-service", "relationship_type": "http", "is_critical": true},
+  {"source": "order-service", "target": "inventory-service", "relationship_type": "grpc", "is_critical": true},
+  {"source": "order-service", "target": "db-service", "relationship_type": "postgres", "is_critical": true},
+  {"source": "inventory-service", "target": "db-service", "relationship_type": "postgres", "is_critical": true},
+  {"source": "payment-service", "target": "db-service", "relationship_type": "postgres", "is_critical": true},
+  {"source": "auth-service", "target": "db-service", "relationship_type": "postgres", "is_critical": true},
+  {"source": "api-gateway", "target": "recommendation-engine", "relationship_type": "http", "is_critical": false},
+  {"source": "recommendation-engine", "target": "db-service", "relationship_type": "postgres", "is_critical": false}
+]

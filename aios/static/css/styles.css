@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  /* ---- Premium enterprise light surface ---- */
+  --bg-color: #f4f7fb;            /* soft slate canvas */
+  --bg-elevated: #eef2f8;
+  --card-bg: #ffffff;             /* pure white cards */
+  --card-bg-alt: #fbfcfe;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --border-color: #e4e9f2;        /* hairline border */
+  --border-strong: #d3dbe8;
+  --border-focus: #2563eb;
+
+  --text-primary: #0f172a;
+  --text-secondary: #4a5568;
+  --text-muted: #94a3b8;
+
+  /* ---- Brand ---- */
+  --primary: #2563eb;             /* enterprise blue */
+  --primary-hover: #1d4ed8;
+  --primary-dark: #1e40af;
+  --primary-light: #eef4ff;
+  --accent: #6366f1;              /* indigo */
+  --accent-cyan: #06b6d4;
+  --brand-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #06b6d4 100%);
+  --brand-gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(99,102,241,0.08), rgba(6,182,212,0.08));
+
+  --success: #059669;
+  --success-bg: #d1fae5;
+  --success-text: #065f46;
+
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---- Premium layered shadows ---- */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 18px 40px -12px rgba(15, 23, 42, 0.16), 0 8px 16px -8px rgba(15, 23, 42, 0.08);
+  --shadow-xl: 0 32px 64px -16px rgba(15, 23, 42, 0.22);
+  --glow-primary: 0 0 0 1px rgba(37, 99, 235, 0.18), 0 8px 24px -6px rgba(37, 99, 235, 0.28);
+  --ring-focus: 0 0 0 3px rgba(37, 99, 235, 0.18);
+
+  --blur: saturate(180%) blur(16px);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  /* Subtle premium gradient mesh */
+  background-image:
+    radial-gradient(900px 600px at 8% -5%, rgba(37, 99, 235, 0.07), transparent 60%),
+    radial-gradient(800px 600px at 100% 0%, rgba(99, 102, 241, 0.06), transparent 55%),
+    radial-gradient(700px 500px at 50% 110%, rgba(6, 182, 212, 0.05), transparent 60%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #cbd5e1, #b6c2d6);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: padding-box; }
+
+/* Base Inputs */
+input, select, textarea {
+  background: #ffffff !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-sm) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+  outline: none;
+  font-family: var(--font-sans);
+}
+input::placeholder, textarea::placeholder { color: var(--text-muted) !important; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--border-focus) !important;
+  box-shadow: var(--ring-focus) !important;
+}
+
+/* Premium button base */
+button { font-family: var(--font-sans); }
+button:focus-visible { outline: none; box-shadow: var(--ring-focus); }
+
+/* ---- Login screen — premium ---- */
+#login-screen {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1000px 700px at 15% 10%, rgba(37, 99, 235, 0.12), transparent 60%),
+    radial-gradient(900px 700px at 90% 90%, rgba(99, 102, 241, 0.12), transparent 55%),
+    var(--bg-color) !important;
+}
+#login-screen::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, rgba(37,99,235,0.10), rgba(6,182,212,0.10), rgba(99,102,241,0.10), rgba(37,99,235,0.10));
+  filter: blur(80px);
+  animation: aurora-spin 24s linear infinite;
+  z-index: 0;
+}
+#login-form {
+  position: relative;
+  z-index: 1;
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-radius: var(--radius-lg) !important;
+}
+#login-form button[type="submit"] {
+  background: var(--brand-gradient) !important;
+  background-size: 200% 200% !important;
+  box-shadow: var(--glow-primary);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-position 0.6s ease;
+}
+#login-form button[type="submit"]:hover {
+  transform: translateY(-1px);
+  background-position: 100% 50% !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,0.25), 0 12px 28px -6px rgba(37,99,235,0.4);
+}
+
+/* ---- Toast Notifications — premium glass ---- */
+#toast-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+.toast {
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1.1rem 0.8rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  pointer-events: auto;
+  animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =====================================================================
+   Light-theme consistency layer — purges dark-era inline remnants.
+   Uses !important to override leftover inline styles safely.
+   ===================================================================== */
+
+/* Ghost buttons that were invisible on white surfaces → crisp light secondary buttons */
+#btn-text-decrease,
+#btn-text-increase,
+#btn-kb-upload-header,
+#btn-export-postmortem,
+#btn-modal-cancel,
+#btn-custom-ingest-cancel,
+#btn-postmortem-preview-close,
+#btn-kb-upload-cancel,
+#btn-agent-detail-close {
+  background: #f1f5f9 !important;
+  color: var(--text-secondary) !important;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease !important;
+}
+#btn-text-decrease:hover,
+#btn-text-increase:hover,
+#btn-kb-upload-header:hover,
+#btn-export-postmortem:hover,
+#btn-modal-cancel:hover,
+#btn-custom-ingest-cancel:hover,
+#btn-postmortem-preview-close:hover,
+#btn-kb-upload-cancel:hover,
+#btn-agent-detail-close:hover {
+  background: #e2e8f0 !important;
+  color: var(--text-primary) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm) !important;
+}
+#text-size-display {
+  background: #f8fafc !important;
+}
+
+/* Softer, more premium modal scrim (was heavy pure black) */
+#resolve-modal,
+#custom-ingest-modal,
+#postmortem-preview-modal,
+#kb-upload-modal,
+#agent-detail-modal {
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: saturate(140%) blur(8px) !important;
+  -webkit-backdrop-filter: saturate(140%) blur(8px) !important;
+}
+
+/* =====================================================================
+   Active-agent flourish — highlights the currently-running agent row
+   during the live pipeline (the exact moment judges watch).
+   ===================================================================== */
+.agent-row.running {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.10), rgba(37, 99, 235, 0.02)) !important;
+  box-shadow: inset 3px 0 0 0 var(--primary);
+  border-radius: 6px;
+}
+.agent-row.running .agent-row-name {
+  color: var(--primary-dark);
+}
+.agent-row.running .agent-row-status {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* =====================================================================
+   Focus Mode — reasoning workspace affordances
+   Grid override lives in reasoning-canvas.css (.main-layout.focus-mode)
+   ===================================================================== */
+.main-layout.focus-mode #panel-evidence,
+.main-layout.focus-mode #panel-actions,
+.main-layout.focus-mode #panel-ai-canvas {
+  box-shadow: var(--shadow-md);
+  animation: focusReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes focusReveal {
+  from { opacity: 0.4; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .main-layout.focus-mode #panel-evidence,
+  .main-layout.focus-mode #panel-actions,
+  .main-layout.focus-mode #panel-ai-canvas {
+    animation: none;
+  }
+}
+.toast::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--primary);
+}
+.toast.toast-error::before { background: var(--danger); }
+.toast.toast-success::before { background: var(--success); }
+.toast.toast-info::before { background: var(--primary); }
+
+@keyframes slideIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(40px); }
+}

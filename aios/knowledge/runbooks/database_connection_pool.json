@@ -1,0 +1,7 @@
+{
+  "id": "runbook_database_connection_pool",
+  "title": "Database Connection Pool Exhaustion Recovery",
+  "category": "runbook",
+  "content": "Database Connection Pool Exhaustion Recovery:\n\n### Symptoms\n- Gateway timeout errors (504) or API Gateway failing to get DB connections.\n- Logs showing 'sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out'.\n- DB server CPU normal, but active client connection counts are at max limit.\n\n### Diagnosis\n1. Run diagnostic query to check active database connections:\n   SELECT count(*), state FROM pg_stat_activity GROUP BY state;\n2. Check if a recent deployment introduced new unclosed DB sessions or increased concurrency.\n\n### Safe Mitigation Steps\nOption A: Dynamically increase connection pool configuration in the service settings.\n- Increase DATABASE_POOL_SIZE from 5 to 20.\n- Increase DATABASE_MAX_OVERFLOW from 10 to 30.\n- Redeploy service with updated environment variables.\n\nOption B: Kill idle transactions that are holding connections open.\n- Run: SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction' AND state_change < now() - interval '5 minutes';\n\n### Rollback Plan\nIf active DB connections overload the PostgreSQL primary server, scale the connection pool back down and provision a Read Replica.",
+  "tags": ["database", "postgres", "pool", "overflow", "pg_stat_activity"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "scenario_03_payment_latency",
+  "name": "Third-Party Payment Service Latency Outage",
+  "description": "API Gateway times out on /charge endpoint due to external payment service issues.",
+  "category": "latency",
+  "expected_risk_level": "high",
+  "expected_diagnosis": "High timeout rates on payment-service endpoint due to external Stripe payment gateway latency.",
+  "alert_payload": {
+    "alert_name": "GatewayTimeout504",
+    "service_name": "payment-service",
+    "severity": "SEV-1",
+    "timestamp": "2026-06-07T02:44:00Z",
+    "details": "Gateway timeout 504 on endpoint POST /charge. Thread pool exhausted waiting for external responses.",
+    "metrics": {
+      "error_rate_pct": 85.0,
+      "response_time_ms": 15000.0,
+      "active_threads": 100
+    }
+  }
+}

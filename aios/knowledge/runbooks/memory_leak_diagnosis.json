@@ -1,0 +1,7 @@
+{
+  "id": "runbook_memory_leak_diagnosis",
+  "title": "Memory Leak Diagnosis and Recovery",
+  "category": "runbook",
+  "content": "Memory Leak Diagnosis and Recovery:\n\n### Symptoms\n- Gradual rise in RAM usage for api-gateway over hours or days without dropping.\n- Pods restarting with status OOMKilled.\n- API latencies degrade slowly as memory usage nears limits.\n\n### Diagnosis\n1. Check memory growth rate:\n   kubectl top pods -l app=api-gateway\n2. Trigger a heap dump for offline inspection:\n   kubectl exec <pod_name> -- node --heap-snapshot\n\n### Safe Mitigation Steps\n- Run a rolling restart of the pods to release RAM back to the cluster node:\n  kubectl rollout restart deployment api-gateway\n- If the leak is rapid, apply memory limits or run heap garbage collection manually if exposed:\n  curl -X POST http://api-gateway/admin/gc (if authenticated).\n\n### Long-Term Resolution\n- Profile node app using chrome devtools to find unclosed closures, event listeners or global object cache growth.",
+  "tags": ["memory-leak", "oom", "restart", "k8s", "gc"]
+}

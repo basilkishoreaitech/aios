@@ -1,0 +1,29 @@
+[
+  {
+    "event_type": "calendar",
+    "service_name": "api-gateway",
+    "title": "Deploy api-gateway-prod v2.3 hotfix",
+    "content": "Production deployment of api-gateway-prod hotfix version v2.3. Focuses on logger formatting optimizations and routing enhancements.",
+    "author": "engineer",
+    "event_time": "2026-06-07T02:30:00Z",
+    "metadata_json": {"version": "v2.3", "release_id": "REL-9923"}
+  },
+  {
+    "event_type": "calendar",
+    "service_name": "auth-service",
+    "title": "Auth Service JWKS Key Rotation Schedule",
+    "content": "Scheduled update to external key resolvers in auth-service configuration.",
+    "author": "admin",
+    "event_time": "2026-06-06T12:00:00Z",
+    "metadata_json": {"version": "v1.8", "change_id": "CHG-4819"}
+  },
+  {
+    "event_type": "calendar",
+    "service_name": "recommendation-engine",
+    "title": "Scale down pods for recommendation-engine",
+    "content": "Decreased pod replication target count from 5 to 2 to minimize Azure billing consumption.",
+    "author": "admin",
+    "event_time": "2026-06-06T18:00:00Z",
+    "metadata_json": {"replicas_count": 2}
+  }
+]

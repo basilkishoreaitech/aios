@@ -1,0 +1,7 @@
+{
+  "id": "incident_9150_aws_lambda_vpc_nat",
+  "title": "Postmortem - Incident #9150: AWS Lambda Timeouts Caused by Missing NAT Egress in VPC",
+  "category": "postmortem",
+  "content": "Postmortem - Incident #9150: AWS Lambda Timeouts Caused by Missing NAT Egress in VPC\n\n### Incident Summary\nA Lambda function that validated tokens and called partner APIs began timing out after being attached to a private VPC subnet. Invocations reached the timeout ceiling without completing initialization or downstream calls.\n\n### Root Cause\nThe Lambda function lost required outbound internet access because the subnet route table no longer directed traffic through a working NAT gateway. The function could not reach external JWKS and partner API endpoints, causing repeated timeout behavior.\n\n### Resolution\n- Verified the Lambda runtime could not reach required external hosts.\n- Checked route tables, NAT gateway health, and subnet association.\n- Restored the correct NAT egress path and revalidated external HTTPS connectivity before resuming traffic.\n\n### Lessons Learned\n- Lambda VPC attachment changes require explicit validation of outbound routes and NAT health.\n- Timeout-at-ceiling symptoms can be caused by network egress loss, not only slow downstream systems.\n- Connectivity checks to JWKS and partner dependencies should be part of post-deployment verification.",
+  "tags": ["aws", "lambda", "vpc", "nat-gateway", "egress", "jwks", "timeout", "incident-history"]
+}

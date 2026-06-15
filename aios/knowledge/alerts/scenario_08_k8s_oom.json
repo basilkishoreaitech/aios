@@ -1,0 +1,20 @@
+{
+  "id": "scenario_08_k8s_oom",
+  "name": "Kubernetes Pod OOMKilled in recommendation-engine",
+  "description": "Kubernetes pod is repeatedly OOMKilled due to memory limits violation.",
+  "category": "kubernetes",
+  "expected_risk_level": "medium",
+  "expected_diagnosis": "Recommendation engine pods are failing with OOMKilled code 137 due to low configured memory limits.",
+  "alert_payload": {
+    "alert_name": "PodOomKilled",
+    "service_name": "recommendation-engine",
+    "severity": "SEV-2",
+    "timestamp": "2026-06-07T02:42:00Z",
+    "details": "Kubernetes Event: Container 'recommendation-engine' in pod 'recommendation-engine-pod-7f8b' terminated with exit code 137 (OOMKilled).",
+    "metrics": {
+      "restart_count": 4,
+      "memory_limits_bytes": 536870912,
+      "memory_usage_bytes": 536870912
+    }
+  }
+}

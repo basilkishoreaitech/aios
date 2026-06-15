@@ -1,0 +1,19 @@
+{
+  "id": "scenario_07_tls_cert",
+  "name": "TLS Certificate Expired on api-gateway",
+  "description": "API Gateway HTTPS requests fail with certificate validation errors.",
+  "category": "tls",
+  "expected_risk_level": "high",
+  "expected_diagnosis": "Ingress HTTPS connections failing with ssl_handshake_error due to an expired TLS certificate.",
+  "alert_payload": {
+    "alert_name": "SslHandshakeError",
+    "service_name": "api-gateway",
+    "severity": "SEV-1",
+    "timestamp": "2026-06-07T02:44:00Z",
+    "details": "Load balancer health check failed: ssl_handshake_error. Certificate expired on 2026-06-07T00:00:00Z.",
+    "metrics": {
+      "failed_handshakes": 1204,
+      "days_until_expiry": -1
+    }
+  }
+}

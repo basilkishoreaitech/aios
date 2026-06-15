@@ -1,0 +1,95 @@
+{
+	"servers": {
+		"com.amazonaws/aws-mcp": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"--read-only",
+				"--cap-drop=ALL",
+				"--security-opt=no-new-privileges:true",
+				"--tmpfs=/tmp:rw,noexec,nosuid,size=64m",
+				"registry-innersource.soprasteria.com/ssg-ia/ai.backbone/ongoing_experimentations/mcp-registry/mcp-containerizer/aws-mcp:1.4.0",
+				"https://aws-mcp.eu-central-1.api.aws/mcp"
+			],
+			"env": {
+				"AWS_ACCESS_KEY_ID": "${input:AWS_ACCESS_KEY_ID}",
+				"AWS_SECRET_ACCESS_KEY": "${input:AWS_SECRET_ACCESS_KEY}",
+				"AWS_SESSION_TOKEN": "${input:AWS_SESSION_TOKEN}",
+				"AWS_REGION": "${input:AWS_REGION}"
+			},
+			"gallery": "https://mcp-registry.apps.ocp4.innershift.sodigital.io",
+			"version": "1.4.0"
+		},
+		"com.microsoft/azure-mcp": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"--init",
+				"--read-only",
+				"--cap-drop=ALL",
+				"--security-opt=no-new-privileges:true",
+				"--tmpfs=/tmp:rw,noexec,nosuid,size=64m",
+				"mcr.microsoft.com/azure-sdk/azure-mcp:3.0.0-beta.10"
+			],
+			"env": {
+				"AZURE_MCP_COLLECT_TELEMETRY": "false",
+				"DOTNET_BUNDLE_EXTRACT_BASE_DIR": "/tmp",
+				"AZURE_TENANT_ID": "${input:AZURE_TENANT_ID}",
+				"AZURE_CLIENT_ID": "${input:AZURE_CLIENT_ID}",
+				"AZURE_CLIENT_SECRET": "${input:AZURE_CLIENT_SECRET}"
+			},
+			"gallery": "https://mcp-registry.apps.ocp4.innershift.sodigital.io",
+			"version": "3.0.0-beta.10"
+		}
+	},
+	"inputs": [
+		{
+			"id": "AWS_ACCESS_KEY_ID",
+			"type": "promptString",
+			"description": "Aws Access Key Id",
+			"password": true
+		},
+		{
+			"id": "AWS_SECRET_ACCESS_KEY",
+			"type": "promptString",
+			"description": "Aws Secret Access Key",
+			"password": true
+		},
+		{
+			"id": "AWS_SESSION_TOKEN",
+			"type": "promptString",
+			"description": "Aws Session Token",
+			"password": true
+		},
+		{
+			"id": "AWS_REGION",
+			"type": "promptString",
+			"description": "Aws Region",
+			"password": false
+		},
+		{
+			"id": "AZURE_TENANT_ID",
+			"type": "promptString",
+			"description": "Azure Tenant Id",
+			"password": false
+		},
+		{
+			"id": "AZURE_CLIENT_ID",
+			"type": "promptString",
+			"description": "Azure Client Id",
+			"password": false
+		},
+		{
+			"id": "AZURE_CLIENT_SECRET",
+			"type": "promptString",
+			"description": "Azure Client Secret",
+			"password": true
+		}
+	]
+}
