@@ -81,11 +81,6 @@ AIOS is a governed, multi-agent reasoning system. Each capability below is imple
 
 > **▶ Video walkthrough** — [Watch on YouTube](https://youtu.be/-s4gOLjw7aY)
 
-The video follows one live incident from alert to resolution — the pipeline streams its reasoning, the critic challenges it, a prompt-injection attempt is blocked, a high-risk step is held at an approval gate, every claim is cited, and the resolved incident is written back as new knowledge.
-
-> **🎥 Recording your own?** The shot-by-shot **[Demo Guide](DEMO_GUIDE.md)** has the exact alert to paste, what to click, and the voiceover for every scene.
-
-> **Reproducible by design:** AIOS ships with **10 deterministic golden scenarios** (DB pool exhaustion, memory leak, DNS, TLS expiry, K8s OOM, cascading failure, and more), and `evaluate_scenarios.py` replays all of them through the live pipeline while A9 self-scores each diagnosis — so the demo behaves identically every time and the accuracy is measurable, not anecdotal.
 
 ---
 
