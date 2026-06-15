@@ -396,12 +396,12 @@ class QueryService:
         sanitized_query = scrub_pii(request.question)
         logger.info(f"Query intake: '{request.question}' -> Scrubbed: '{sanitized_query}'")
 
-        # ── LLM intent classification — routes list queries directly to DB ──────
-        intent = await self._classify_intent(sanitized_query)
-        if intent.startswith("list_"):
-            status_map = {"list_open": "open", "list_resolved": "resolved", "list_all": "all"}
-            logger.info("Intent '%s' detected. Querying DB directly.", intent)
-            return await self.list_incidents(session, status_filter=status_map[intent])
+        # ── Fast regex-based list intent — no LLM, no firewall needed ───────────
+        regex_list_intent = _detect_incident_list_intent(sanitized_query)
+        if regex_list_intent is not None:
+            status_map = {"open": "open", "resolved": "resolved", "all": "all"}
+            logger.info("Regex intent '%s' detected. Querying DB directly.", regex_list_intent)
+            return await self.list_incidents(session, status_filter=status_map[regex_list_intent])
 
         firewall_decision = self.firewall.inspect_user_question(sanitized_query)
         if not firewall_decision.allowed:
